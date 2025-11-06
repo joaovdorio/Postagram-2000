@@ -43,8 +43,8 @@ const App: React.FC = () => {
         )}
       </main>
        <footer className="w-full max-w-4xl mt-12 text-center text-zinc-500 text-sm">
-        <p>Desenvolvido com React, TypeScript e Tailwind CSS.</p>
-        <p>As mídias são processadas localmente e não são enviadas para nenhum servidor.</p>
+        <p>Desenvolvido internamente na Todolivro.</p>
+        <p>Todas as mídias são processadas localmente e não são enviadas para nenhum servidor. Você está seguro.</p>
       </footer>
     </div>
   );
