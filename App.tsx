@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const [postData, setPostData] = useState<PostData>({
     files: [],
     username: 'seu_usuario',
-    caption: 'Esta é uma legenda de exemplo para a sua incrível postagem no Instagram! ✨ #React #TailwindCSS',
+    caption: 'Esta é uma legenda de exemplo para a sua incrível postagem no Instagram! ✨',
     likes: '1.234',
     comments: '56',
     shares: '7',
