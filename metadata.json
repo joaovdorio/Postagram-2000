@@ -1,0 +1,5 @@
+{
+  "name": "Instagram Carousel Visualizer",
+  "description": "An application to create and visualize Instagram-style carousel posts. Upload up to 20 media files, add captions and details, select an aspect ratio, and preview the final post layout before publishing.",
+  "requestFramePermissions": []
+}
