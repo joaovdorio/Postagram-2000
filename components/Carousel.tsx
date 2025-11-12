@@ -66,7 +66,21 @@ export const Carousel: React.FC<CarouselProps> = ({ files, aspectRatio }) => {
     setDragOffset(0); // Reset offset to snap back or to the new slide
   };
 
-  const aspectRatioClass = aspectRatio === '1:1' ? 'aspect-square' : 'aspect-[3/4]';
+  let aspectRatioClass = '';
+  switch (aspectRatio) {
+    case '1:1':
+      aspectRatioClass = 'aspect-square';
+      break;
+    case '3:4':
+      aspectRatioClass = 'aspect-[3/4]';
+      break;
+    case '9:16':
+      aspectRatioClass = 'aspect-[9/16]';
+      break;
+    default:
+      aspectRatioClass = 'aspect-square';
+  }
+
   const mediaObjectClass = aspectRatio === '1:1' ? 'object-cover' : 'object-contain';
   
   const sliderStyle = {

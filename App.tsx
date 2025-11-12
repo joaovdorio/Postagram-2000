@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { PostConfigurator } from './components/PostConfigurator';
 import { PostPreview } from './components/PostPreview';
-import { PostData, AspectRatio } from './types';
+import { PostData } from './types';
 
 const App: React.FC = () => {
   const [showPreview, setShowPreview] = useState(false);
@@ -14,6 +13,7 @@ const App: React.FC = () => {
     comments: '56',
     shares: '7',
     aspectRatio: '1:1',
+    postType: 'Carousel',
   });
 
   const handleUpdate = <K extends keyof PostData>(key: K, value: PostData[K]) => {

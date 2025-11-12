@@ -1,5 +1,5 @@
-
-export type AspectRatio = '1:1' | '3:4';
+export type AspectRatio = '1:1' | '3:4' | '9:16';
+export type PostType = 'Photo' | 'Carousel' | 'Reels';
 
 export interface PostData {
   files: File[];
@@ -9,4 +9,5 @@ export interface PostData {
   comments: string;
   shares: string;
   aspectRatio: AspectRatio;
+  postType: PostType;
 }
