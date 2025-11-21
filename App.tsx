@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { PostConfigurator } from './components/PostConfigurator';
 import { PostPreview } from './components/PostPreview';
@@ -30,6 +31,7 @@ const App: React.FC = () => {
     following: '420',
     postsCount: '150',
     files: Array(9).fill(null),
+    profileImage: null,
   });
 
   const handlePostUpdate = <K extends keyof PostData>(key: K, value: PostData[K]) => {

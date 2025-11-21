@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ProfileData } from '../types';
 
@@ -10,6 +11,12 @@ interface ProfileConfiguratorProps {
 export const ProfileConfigurator: React.FC<ProfileConfiguratorProps> = ({ profileData, onUpdate, onVisualize }) => {
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dropTargetIndex, setDropTargetIndex] = useState<number | null>(null);
+
+  const handleProfileImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      onUpdate('profileImage', e.target.files[0]);
+    }
+  };
 
   // Handle file upload for specific slots or append to first empty
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,10 +87,41 @@ export const ProfileConfigurator: React.FC<ProfileConfiguratorProps> = ({ profil
         </button>
       </div>
 
-      {/* Inputs do Perfil */}
-      <div className="grid grid-cols-2 gap-4">
-        <InputField label="Usuário (@)" value={profileData.username} onChange={e => onUpdate('username', e.target.value)} />
-        <InputField label="Nome de Exibição" value={profileData.name} onChange={e => onUpdate('name', e.target.value)} />
+      {/* Configuração de Avatar e Dados Principais */}
+      <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center bg-zinc-900/50 p-4 rounded-lg">
+        <div className="relative w-24 h-24 rounded-full bg-zinc-700 overflow-hidden flex-shrink-0 border-2 border-zinc-600 group">
+          {profileData.profileImage ? (
+            <img 
+              src={URL.createObjectURL(profileData.profileImage)} 
+              alt="Preview" 
+              className="w-full h-full object-cover" 
+            />
+          ) : (
+            <div className="flex items-center justify-center h-full text-xs text-zinc-400 text-center p-1">
+              Foto Perfil
+            </div>
+          )}
+          <input 
+            type="file" 
+            accept="image/*" 
+            onChange={handleProfileImageUpload} 
+            className="absolute inset-0 opacity-0 cursor-pointer z-10" 
+            title="Alterar foto de perfil"
+          />
+          <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            <span className="text-xs text-white font-semibold">Alterar</span>
+          </div>
+        </div>
+
+        <div className="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <InputField label="Usuário (@)" value={profileData.username} onChange={e => onUpdate('username', e.target.value)} />
+          <InputField label="Nome de Exibição" value={profileData.name} onChange={e => onUpdate('name', e.target.value)} />
+        </div>
+      </div>
+
+      {/* Métricas */}
+      <div className="grid grid-cols-3 gap-4">
+        <InputField label="Publicações" value={profileData.postsCount} onChange={e => onUpdate('postsCount', e.target.value)} />
         <InputField label="Seguidores" value={profileData.followers} onChange={e => onUpdate('followers', e.target.value)} />
         <InputField label="Seguindo" value={profileData.following} onChange={e => onUpdate('following', e.target.value)} />
       </div>

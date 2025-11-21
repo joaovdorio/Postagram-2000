@@ -1,3 +1,4 @@
+
 export type AspectRatio = '1:1' | '3:4' | '9:16';
 export type PostType = 'Photo' | 'Carousel' | 'Reels';
 export type AppMode = 'post' | 'profile';
@@ -21,4 +22,5 @@ export interface ProfileData {
   following: string;
   postsCount: string;
   files: (File | null)[]; // Fixed 9 slots
+  profileImage?: File | null;
 }

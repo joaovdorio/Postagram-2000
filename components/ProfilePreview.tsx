@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { ProfileData } from '../types';
 
 // Icons
@@ -20,6 +21,18 @@ interface ProfilePreviewProps {
 }
 
 export const ProfilePreview: React.FC<ProfilePreviewProps> = ({ profileData, onBack }) => {
+  const [avatarUrl, setAvatarUrl] = useState<string>('');
+
+  useEffect(() => {
+    if (profileData.profileImage) {
+      const url = URL.createObjectURL(profileData.profileImage);
+      setAvatarUrl(url);
+      return () => URL.revokeObjectURL(url);
+    } else {
+      setAvatarUrl(`https://ui-avatars.com/api/?name=${profileData.name || 'User'}&background=random&color=fff`);
+    }
+  }, [profileData.profileImage, profileData.name]);
+
   return (
     <div className="flex flex-col items-center animate-fade-in">
       <div className="w-full max-w-[380px] bg-black border border-zinc-700 rounded-[30px] overflow-hidden text-white shadow-2xl relative">
@@ -54,7 +67,7 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({ profileData, onB
               <div className="w-20 h-20 rounded-full p-[2px] bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600">
                 <div className="w-full h-full rounded-full border-2 border-black overflow-hidden bg-zinc-800">
                   <img 
-                    src={`https://ui-avatars.com/api/?name=${profileData.name}&background=random&color=fff`} 
+                    src={avatarUrl} 
                     alt={profileData.username} 
                     className="w-full h-full object-cover"
                   />
@@ -150,7 +163,10 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({ profileData, onB
         <div className="flex justify-around items-center py-3 border-t border-zinc-800 bg-black absolute bottom-0 w-full z-20">
            <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M22 10.926v1.548a.998.998 0 0 1-.821.983l-7.49 1.338a1 1 0 0 1-1.046-.648l-2.243-5.96a1 1 0 0 1 .033-.768l1.717-4.034a.998.998 0 0 1 1.574-.256l8.276 7.8Z"></path><path d="M2 12.474V10.926a.998.998 0 0 1 .821-.983l7.49-1.338a1 1 0 0 1 1.046.648l2.243 5.96a1 1 0 0 1-.033.768l-1.717 4.034a.998.998 0 0 1-1.574.256l-8.276-7.8Z"></path></svg>
            <svg className="w-6 h-6 text-zinc-500" fill="currentColor" viewBox="0 0 24 24"><path d="M21.938 12.001c.004-.05 0-.099 0-.149 0-5.213-4.453-9.451-9.938-9.451S2 6.639 2 11.852c0 .05 0 .099.005.149C2.096 17.15 6.55 21.397 12 21.397s9.904-4.247 9.938-9.396Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="17.648" x2="12.008" y1="6.612" y2="12"></line><line fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" x1="6.352" x2="12" y1="6.612" y2="12"></line></svg>
-           <div className="w-7 h-7 rounded-full bg-zinc-800 border border-zinc-600"></div>
+           {/* Profile Pic in Footer */}
+           <div className="w-7 h-7 rounded-full bg-zinc-800 border border-zinc-600 overflow-hidden">
+             {avatarUrl && <img src={avatarUrl} alt="me" className="w-full h-full object-cover" />}
+           </div>
         </div>
       </div>
       
